@@ -17,8 +17,12 @@ public class Concessionnaire {
     private int id;
     private String name;
 
-    @OneToMany
-    @JoinColumn(name="concessionnaire_id")
+    @ManyToMany
+    @JoinTable(
+            name = "brand_concessionnaire",
+            joinColumns = @JoinColumn(name = "brand_id"),
+            inverseJoinColumns = @JoinColumn(name = "concessionnaire_id")
+    )
     private Set<Brand> brand = new HashSet<Brand>();
 
 }
