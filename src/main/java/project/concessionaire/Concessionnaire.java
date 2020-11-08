@@ -20,8 +20,8 @@ public class Concessionnaire {
     @ManyToMany
     @JoinTable(
             name = "brand_concessionnaire",
-            joinColumns = @JoinColumn(name = "brand_id"),
-            inverseJoinColumns = @JoinColumn(name = "concessionnaire_id")
+            inverseJoinColumns = @JoinColumn(name = "concessionnaire_id"),
+            joinColumns = @JoinColumn(name = "brand_id")
     )
     private Set<Brand> brand = new HashSet<Brand>();
 
