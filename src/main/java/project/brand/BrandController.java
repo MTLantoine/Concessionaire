@@ -35,7 +35,7 @@ public class BrandController {
     }
 
     @PutMapping("/{brandId}")
-    public Brand putBrand(@RequestBody Brand newBrand, @PathVariable("brandId") int brandId) throws AlreadyExistingException {
+    public Brand putBrand(@RequestBody Brand newBrand, @PathVariable("brandId") int brandId) {
         return brandRepository.findById(brandId).map(brand -> {
             brand.setId(newBrand.getId());
             brand.setName(newBrand.getName());

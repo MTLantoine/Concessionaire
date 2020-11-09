@@ -18,14 +18,30 @@ public class CarController {
         return carRepository.findAll();
     }
 
+    @GetMapping("/{carId}")
+    public Optional<Car> getCarId(@PathVariable("carId") int carId) {
+        return carRepository.findById(carId);
+    }
+
     @PostMapping("/add")
-    public String postCar(@RequestBody Car newCar) throws AlreadyExistingException {
+    public Car postCar(@RequestBody Car newCar) throws AlreadyExistingException {
         final Optional<Car> optionalExistingCar = carRepository.findAll().stream().filter(car -> car.getId() == newCar.getId()).findFirst();
         if (optionalExistingCar.isPresent()) {
             throw new AlreadyExistingException("Car : { id : " + newCar.getId() + " } already exists.");
         } else {
-            carRepository.save(newCar);
-            return "New Car : { id : " + newCar.getId() + " } added successfully !";
+            return carRepository.save(newCar);
         }
+    }
+
+    @PutMapping("/{carId}")
+    public Car putAddress(@RequestBody Car newCar, @PathVariable("carId") int carId) {
+        return carRepository.findById(carId).map(car -> {
+            car.setId(newCar.getId());
+            car.setName(newCar.getName());
+            return carRepository.save(car);
+        }).orElseGet(() -> {
+            newCar.setId(carId);
+            return carRepository.save(newCar);
+        });
     }
 }

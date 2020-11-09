@@ -24,32 +24,27 @@ public class AddressController {
     }
 
     @PostMapping("/add")
-    public String postAddress(@RequestBody Address newAddress) throws AlreadyExistingException {
+    public Address postAddress(@RequestBody Address newAddress) throws AlreadyExistingException {
         final Optional<Address> optionalExistingAddress = addressRepository.findAll().stream().filter(address -> address.getId() == newAddress.getId()).findFirst();
         if (optionalExistingAddress.isPresent()) {
             throw new AlreadyExistingException("Address : { id : " + newAddress.getId() + " } already exists.");
         } else {
-            addressRepository.save(newAddress);
-            return "New Address : { id : " + newAddress.getId() + " } added successfully !";
+            return addressRepository.save(newAddress);
         }
     }
 
     @PutMapping("/{addressId}")
-    public String putAddress(@RequestBody Address newAddress, @PathVariable("addressId") int addressId) throws AlreadyExistingException {
-        final Optional<Address> optionalExistingAddress = getAddressId(addressId);
-        if (optionalExistingAddress.isPresent()) {
-            Address address = optionalExistingAddress.get();
+    public Address putAddress(@RequestBody Address newAddress, @PathVariable("addressId") int addressId) {
+        return addressRepository.findById(addressId).map(address -> {
+            address.setId(newAddress.getId());
             address.setNum(newAddress.getNum());
             address.setStreet(newAddress.getStreet());
             address.setCp(newAddress.getCp());
             address.setCity(newAddress.getCity());
-
-
-
-        }else{
-            postAddress(newAddress);
-            return "Brand does not exist, creation of a new brand.";
-        }
-
+            return addressRepository.save(address);
+        }).orElseGet(() -> {
+            newAddress.setId(addressId);
+            return addressRepository.save(newAddress);
+        });
     }
 }

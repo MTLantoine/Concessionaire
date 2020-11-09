@@ -18,15 +18,33 @@ public class ConcessionnaireController {
         return concessionnaireRepository.findAll();
     }
 
+    @GetMapping("/{concessionnaireId}")
+    public Optional <Concessionnaire> getConcessionnaireId(@PathVariable("concessionnaireId") int concessionnaireId) {
+        return concessionnaireRepository.findById(concessionnaireId);
+    }
+
     @PostMapping("/add")
-    public String postConcessionnaire(@RequestBody Concessionnaire newConcessionnaire) throws AlreadyExistingException {
+    public Concessionnaire postConcessionnaire(@RequestBody Concessionnaire newConcessionnaire) throws AlreadyExistingException {
         final Optional<Concessionnaire> optionalExistingConcessionnaire = concessionnaireRepository.findAll().stream().filter(concessionnaire -> concessionnaire.getId() == newConcessionnaire.getId()).findFirst();
         if (optionalExistingConcessionnaire.isPresent()) {
             throw new AlreadyExistingException("Concessionnaire : { id : " + newConcessionnaire.getId() + " } already exists.");
         } else {
-            concessionnaireRepository.save(newConcessionnaire);
-            return "New Concessionnaire : { id : " + newConcessionnaire.getId() + " } added successfully !";
+            return concessionnaireRepository.save(newConcessionnaire);
         }
+    }
+
+    @PutMapping("{concessionnaireId}")
+    public Concessionnaire putConcessionnaire(@RequestBody Concessionnaire newConcessionnaire, @PathVariable("concessionnaireId") int concessionnaireId) {
+        return concessionnaireRepository.findById(concessionnaireId).map(concessionnaire -> {
+            concessionnaire.setId(newConcessionnaire.getId());
+            concessionnaire.setName(newConcessionnaire.getName());
+            concessionnaire.setAddress(newConcessionnaire.getAddress());
+            concessionnaire.setBrand(newConcessionnaire.getBrand());
+            return concessionnaireRepository.save(concessionnaire);
+        }).orElseGet(() -> {
+            newConcessionnaire.setId(concessionnaireId);
+            return concessionnaireRepository.save(newConcessionnaire);
+        });
     }
 
 
