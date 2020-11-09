@@ -33,4 +33,23 @@ public class AddressController {
             return "New Address : { id : " + newAddress.getId() + " } added successfully !";
         }
     }
+
+    @PutMapping("/{addressId}")
+    public String putAddress(@RequestBody Address newAddress, @PathVariable("addressId") int addressId) throws AlreadyExistingException {
+        final Optional<Address> optionalExistingAddress = getAddressId(addressId);
+        if (optionalExistingAddress.isPresent()) {
+            Address address = optionalExistingAddress.get();
+            address.setNum(newAddress.getNum());
+            address.setStreet(newAddress.getStreet());
+            address.setCp(newAddress.getCp());
+            address.setCity(newAddress.getCity());
+
+
+
+        }else{
+            postAddress(newAddress);
+            return "Brand does not exist, creation of a new brand.";
+        }
+
+    }
 }
