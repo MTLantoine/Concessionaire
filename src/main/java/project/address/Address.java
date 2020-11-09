@@ -13,6 +13,9 @@ public class Address {
 
     @Id
     private int id;
-    private String name;
+    private int num;
+    private String street;
+    private int cp;
+    private String city;
 
 }
