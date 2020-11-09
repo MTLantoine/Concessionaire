@@ -47,4 +47,9 @@ public class AddressController {
             return addressRepository.save(newAddress);
         });
     }
+
+    @DeleteMapping("/{addressId}")
+    public void deleteAddress(@PathVariable("addressId") int addressId) {
+        addressRepository.deleteById(addressId);
+    }
 }

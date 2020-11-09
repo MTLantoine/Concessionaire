@@ -46,4 +46,9 @@ public class BrandController {
             return brandRepository.save(newBrand);
         });
     }
+
+    @DeleteMapping("/{brandId}")
+    public void deleteBrand(@PathVariable("brandId") int brandId) {
+        brandRepository.deleteById(brandId);
+    }
 }

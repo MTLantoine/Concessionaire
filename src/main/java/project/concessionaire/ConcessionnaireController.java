@@ -2,6 +2,7 @@ package project.concessionaire;
 
 import org.springframework.beans.factory.annotation.*;
 import org.springframework.web.bind.annotation.*;
+import project.address.Address;
 import project.exception.AlreadyExistingException;
 
 import java.util.Optional;
@@ -19,8 +20,21 @@ public class ConcessionnaireController {
     }
 
     @GetMapping("/{concessionnaireId}")
-    public Optional <Concessionnaire> getConcessionnaireId(@PathVariable("concessionnaireId") int concessionnaireId) {
+    public Optional<Concessionnaire> getConcessionnaireId(@PathVariable("concessionnaireId") int concessionnaireId) {
         return concessionnaireRepository.findById(concessionnaireId);
+    }
+
+    @GetMapping("/{concessionnaireId}/{extention}")
+    public Optional<Object> getAddressOfConcessionnaire(@PathVariable("concessionnaireId") int concessionnaireId, @PathVariable("extention") String extention) {
+        switch (extention) {
+            case "address":
+                return concessionnaireRepository.findById(concessionnaireId).map(concessionnaire -> concessionnaire.getAddress());
+            case "brand":
+                return concessionnaireRepository.findById(concessionnaireId).map(concessionnaire -> concessionnaire.getBrand());
+            default:
+                return null;
+        }
+
     }
 
     @PostMapping("/add")
@@ -33,7 +47,7 @@ public class ConcessionnaireController {
         }
     }
 
-    @PutMapping("{concessionnaireId}")
+    @PutMapping("/{concessionnaireId}")
     public Concessionnaire putConcessionnaire(@RequestBody Concessionnaire newConcessionnaire, @PathVariable("concessionnaireId") int concessionnaireId) {
         return concessionnaireRepository.findById(concessionnaireId).map(concessionnaire -> {
             concessionnaire.setId(newConcessionnaire.getId());
@@ -47,5 +61,8 @@ public class ConcessionnaireController {
         });
     }
 
-
+    @DeleteMapping("/{concessionnaireId}")
+    public void deleteConcessionnaire(@PathVariable("concessionnaireId") int concessionnaireId) {
+        concessionnaireRepository.deleteById(concessionnaireId);
+    }
 }

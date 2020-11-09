@@ -44,4 +44,9 @@ public class CarController {
             return carRepository.save(newCar);
         });
     }
+
+    @DeleteMapping("/{carId}")
+    public void deleteCar(@PathVariable("carId") int carId) {
+        carRepository.deleteById(carId);
+    }
 }

@@ -46,4 +46,9 @@ public class ClientController {
             return clientRepository.save(newClient);
         });
     }
+
+    @DeleteMapping("/{clientId}")
+    public void deleteClient(@PathVariable("clientId") int clientId) {
+        clientRepository.deleteById(clientId);
+    }
 }
