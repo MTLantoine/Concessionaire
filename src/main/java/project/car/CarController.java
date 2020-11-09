@@ -19,12 +19,13 @@ public class CarController {
     }
 
     @PostMapping("/add")
-    public void postCar(@RequestBody Car newCar) throws AlreadyExistingException {
+    public String postCar(@RequestBody Car newCar) throws AlreadyExistingException {
         final Optional<Car> optionalExistingCar = carRepository.findAll().stream().filter(car -> car.getId() == newCar.getId()).findFirst();
         if (optionalExistingCar.isPresent()) {
             throw new AlreadyExistingException("Car : { id : " + newCar.getId() + " } already exists.");
         } else {
             carRepository.save(newCar);
+            return "New Car : { id : " + newCar.getId() + " } added successfully !";
         }
     }
 }

@@ -25,12 +25,13 @@ public class AddressController {
     }
 
     @PostMapping("/add")
-    public void postAddress(@RequestBody Address newAddress) throws AlreadyExistingException {
+    public String postAddress(@RequestBody Address newAddress) throws AlreadyExistingException {
         final Optional<Address> optionalExistingAddress = addressRepository.findAll().stream().filter(address -> address.getId() == newAddress.getId()).findFirst();
         if (optionalExistingAddress.isPresent()) {
             throw new AlreadyExistingException("Address : { id : " + newAddress.getId() + " } already exists.");
         } else {
             addressRepository.save(newAddress);
+            return "New Address : { id : " + newAddress.getId() + " } added successfully !";
         }
     }
 }

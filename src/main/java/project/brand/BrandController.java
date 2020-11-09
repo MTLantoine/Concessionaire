@@ -20,12 +20,13 @@ public class BrandController {
     }
 
     @PostMapping("/add")
-    public void postBrand(@RequestBody Brand newBrand) throws AlreadyExistingException {
+    public String postBrand(@RequestBody Brand newBrand) throws AlreadyExistingException {
         final Optional<Brand> optionalExistingBrand = brandRepository.findAll().stream().filter(brand -> brand.getId() == newBrand.getId()).findFirst();
         if (optionalExistingBrand.isPresent()) {
             throw new AlreadyExistingException("Brand : { id : " + newBrand.getId() + " } already exists.");
         } else {
             brandRepository.save(newBrand);
+            return "New Brand : { id : " + newBrand.getId() + " } added successfully !";
         }
     }
 }

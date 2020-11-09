@@ -19,12 +19,15 @@ public class ConcessionnaireController {
     }
 
     @PostMapping("/add")
-    public void postConcessionnaire(@RequestBody Concessionnaire newConcessionnaire) throws AlreadyExistingException {
+    public String postConcessionnaire(@RequestBody Concessionnaire newConcessionnaire) throws AlreadyExistingException {
         final Optional<Concessionnaire> optionalExistingConcessionnaire = concessionnaireRepository.findAll().stream().filter(concessionnaire -> concessionnaire.getId() == newConcessionnaire.getId()).findFirst();
         if (optionalExistingConcessionnaire.isPresent()) {
             throw new AlreadyExistingException("Concessionnaire : { id : " + newConcessionnaire.getId() + " } already exists.");
         } else {
             concessionnaireRepository.save(newConcessionnaire);
+            return "New Concessionnaire : { id : " + newConcessionnaire.getId() + " } added successfully !";
         }
     }
+
+
 }
