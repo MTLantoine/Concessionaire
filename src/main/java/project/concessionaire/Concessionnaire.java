@@ -30,4 +30,35 @@ public class Concessionnaire {
     )
     private Set<Brand> brand = new HashSet<Brand>();
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Set<Address> getAddress() {
+        return address;
+    }
+
+    public void setAddress(Set<Address> address) {
+        this.address = address;
+    }
+
+    public Set<Brand> getBrand() {
+        return brand;
+    }
+
+    public void setBrand(Set<Brand> brand) {
+        this.brand = brand;
+    }
 }
