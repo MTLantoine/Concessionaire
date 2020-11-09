@@ -7,26 +7,26 @@ Spring project about a concessionaire
 
 ## GET
 
-- **getAddressByConcessionnaire :** GET \ localhost:8080/concessionnaire/1/address
-- **getBrandByConcessionnaire :** GET \ localhost:8080/concessionnaire/1/brand
+- **getAddressByConcessionnaire :** GET \ localhost:8080/concessionnaire/{id}/address
+- **getBrandByConcessionnaire :** GET \ localhost:8080/concessionnaire/{id}/brand
 - **getConcessionnaire :** GET \ localhost:8080/concessionnaire
-- **getConcessionnaireById :** GET \ localhost:8080/concessionnaire/1
+- **getConcessionnaireById :** GET \ localhost:8080/concessionnaire/{id}
 - **getAddress :** GET \ localhost:8080/address
-- **getAddressById :** GET \ localhost:8080/address/1
+- **getAddressById :** GET \ localhost:8080/address/{id}
 - **getCar :** GET \ localhost:8080/car
-- **getCarById :** GET \ localhost:8080/car/1
+- **getCarById :** GET \ localhost:8080/car/{id}
 - **getBrand :** GET \ localhost:8080/brand
-- **getBrandById :** GET \ localhost:8080/brand/1
+- **getBrandById :** GET \ localhost:8080/brand/{id}
 - **getClient :** GET \ localhost:8080/client
-- **getClientById :** GET \ localhost:8080/client/1
+- **getClientById :** GET \ localhost:8080/client/{id}
 
 ## PUT
 
-- **putConcessionnaire :** PUT \ localhost:8080/concessionnaire/1
-- **putAddress :** PUT \ localhost:8080/address/1
-- **putCar :** PUT \ localhost:8080/car/1
-- **putBrand :** PUT \ localhost:8080/brand/1
-- **putClient :** PUT \ localhost:8080/client/1
+- **putConcessionnaire :** PUT \ localhost:8080/concessionnaire/{id}
+- **putAddress :** PUT \ localhost:8080/address/{id}
+- **putCar :** PUT \ localhost:8080/car/{id}
+- **putBrand :** PUT \ localhost:8080/brand/{id}
+- **putClient :** PUT \ localhost:8080/client/{id}
 
 ## POST
 
@@ -38,8 +38,8 @@ Spring project about a concessionaire
 
 ## DELETE
 
-- **deleteConcessionnaire :** DELETE \ localhost:8080/concessionnaire/1
-- **deleteAddress :** DELETE \ localhost:8080/address/1
-- **deleteCar :** DELETE \ localhost:8080/car/1
-- **deleteBrand :** DELETE \ localhost:8080/brand/1
-- **deleteClient :** DELETE \ localhost:8080/client/1
+- **deleteConcessionnaire :** DELETE \ localhost:8080/concessionnaire/{id}
+- **deleteAddress :** DELETE \ localhost:8080/address/{id}
+- **deleteCar :** DELETE \ localhost:8080/car/{id}
+- **deleteBrand :** DELETE \ localhost:8080/brand/{id}
+- **deleteClient :** DELETE \ localhost:8080/client/{id}
